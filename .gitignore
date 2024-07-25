@@ -1,4 +1,10 @@
+# MacOS hidden files
 *.DS_Store
-*.zip
+
+# Other Resources
 *.psd
 *.png
+
+# Export
+QuickAbandon
+*.zip
