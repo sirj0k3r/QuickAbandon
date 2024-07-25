@@ -1,0 +1,9 @@
+## Interface: 110000
+## Title: Quick Abandon
+## Version: V1.0
+## Game Version: 11.0.0
+## Author: SirJ0K3R
+## Notes: Quickly abandon quests by pressing them while holding Alt
+## IconTexture: Interface\AddOns\QuickAbandon\Resources\QuickAbandon-32.tga
+
+QuickAbandon.lua
