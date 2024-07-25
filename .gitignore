@@ -1,1 +1,4 @@
-Resources/.DS_Store
+*.DS_Store
+*.zip
+*.psd
+*.png
