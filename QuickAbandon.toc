@@ -1,7 +1,6 @@
-## Interface: 110200
+## Interface: 110002
 ## Title: Quick Abandon
 ## Version: 1.0
-## Game Version: 11.0.2
 ## Author: SirJ0K3R
 ## Notes: Quickly abandon quests by pressing them while holding Alt
 ## IconTexture: Interface\AddOns\QuickAbandon\Resources\QuickAbandon-32.tga
