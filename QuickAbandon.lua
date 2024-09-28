@@ -8,7 +8,7 @@ function QuickAbandonQuest()
 
 		WorldMapFrameCloseButton:Click();
 		
-		print("|cFFFFF00AQuest abandoned: ".. GetQuestLink(questID) .."");
+		SendSystemMessage("Quest abandoned: ".. GetQuestLink(questID) .."")
 	end
 end
 
