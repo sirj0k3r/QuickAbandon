@@ -1,7 +1,5 @@
-questID = nil;
-
-function QuickAbandonQuest()
-	if (CheckKeybind() and QuestChecks()) then
+function QuickAbandonQuest(questID)
+	if (CheckKeybind() and QuestChecks(questID)) then
 		C_QuestLog.SetSelectedQuest(questID); 
 		C_QuestLog.SetAbandonQuest(); 
 		C_QuestLog.AbandonQuest();
@@ -12,33 +10,24 @@ function QuickAbandonQuest()
 	end
 end
 
-hooksecurefunc("QuestMapLogTitleButton_OnClick", function(self, button)
-	SetQuestID(self.questID);
-	QuickAbandonQuest();
+hooksecurefunc("QuestMapLogTitleButton_OnClick", function(self)
+	QuickAbandonQuest(self.questID);
 end)
 
-hooksecurefunc(CampaignQuestObjectiveTracker, "OnBlockHeaderClick", function(self, block, button)
-	SetQuestID(block.id);
-	QuickAbandonQuest();
+hooksecurefunc(CampaignQuestObjectiveTracker, "OnBlockHeaderClick", function(_, block)
+	QuickAbandonQuest(block.id);
 end)
 
-hooksecurefunc(QuestObjectiveTracker, "OnBlockHeaderClick", function(self, block, button)
-	SetQuestID(block.id);
-	QuickAbandonQuest();
+hooksecurefunc(QuestObjectiveTracker, "OnBlockHeaderClick", function(_, block)
+	QuickAbandonQuest(block.id);
 end)
 
--- Checks if the keybind is present
 function CheckKeybind()
-	result = IsAltKeyDown();
+	local result = IsAltKeyDown();
 	return result;
 end
 
--- Checks if a quest can be abandoned
-function QuestChecks()
-	result = C_QuestLog.CanAbandonQuest(questID) and C_QuestLog.IsOnQuest(questID)
+function QuestChecks(questID)
+	local result = C_QuestLog.CanAbandonQuest(questID) and C_QuestLog.IsOnQuest(questID)
 	return result;
-end
-
-function SetQuestID(id)
-	questID = id;
 end
