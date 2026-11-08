@@ -1,0 +1,52 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - "v*"
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Resolve addon name and version
+        run: |
+          ADDON="${GITHUB_REPOSITORY#*/}"
+          VERSION="${GITHUB_REF_NAME#v}"
+          TOC_VERSION="$(grep -m1 '^## Version:' "$ADDON.toc" | sed 's/^## Version:[[:space:]]*//' | tr -d '\r')"
+          if [ "$TOC_VERSION" != "$VERSION" ]; then
+            echo "::error::Tag $GITHUB_REF_NAME does not match $ADDON.toc version ($TOC_VERSION)"
+            exit 1
+          fi
+          echo "ADDON=$ADDON" >> "$GITHUB_ENV"
+          echo "VERSION=$VERSION" >> "$GITHUB_ENV"
+
+      - name: Build zip
+        run: |
+          mkdir -p "build/$ADDON"
+          rsync -a \
+            --exclude '.git*' \
+            --exclude '.github' \
+            --exclude '.vscode' \
+            --exclude '.DS_Store' \
+            --exclude 'build' \
+            --exclude '*.zip' \
+            --exclude '*.psd' \
+            --exclude '*.png' \
+            --exclude 'CURSEFORGE.md' \
+            ./ "build/$ADDON/"
+          cd build
+          zip -r "$ADDON-$VERSION.zip" "$ADDON"
+
+      - name: Create release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release create "$GITHUB_REF_NAME" "build/$ADDON-$VERSION.zip" \
+            --title "$ADDON $VERSION" \
+            --generate-notes
