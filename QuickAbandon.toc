@@ -1,9 +1,9 @@
-## Interface: 120100, 16001
+## Interface: 120105, 16001
 ## Title: Quick Abandon
-## Version: 1.0.2
+## Version: 1.1.0
 ## Author: SirJ0K3R
 ## Category: Quests
-## Notes: Quickly abandon quests by pressing them while holding Alt
+## Notes: Merged into Quick Questing; no further updates. Quickly abandon quests by clicking them while holding Alt
 ## IconTexture: Interface\AddOns\QuickAbandon\Resources\QuickAbandon-32.tga
 
 QuickAbandon.lua
